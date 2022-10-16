@@ -8,8 +8,8 @@ import jwt from 'jsonwebtoken'
 export const createUser = async (req, res) => {
     if(req.body.firstname && req.body.lastname && req.body.username && req.body.email && req.body.password){
     const user = new userModel({
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
+        firstname: req.body.firstname.toLowerCase(),
+        lastname: req.body.lastname.toLowerCase(),
         username: req.body.username.toLowerCase(),
         email: req.body.email.toLowerCase(),
         password: bcrypt.hashSync(req.body.password, 8),
@@ -176,16 +176,16 @@ export const updateUser = async (req, res) => {
         try {
             
             if (req.body.firstname != null || req.body.firstname !== undefined) {
-                updatedata["firstname"] = req.body.firstname
+                updatedata["firstname"] = req.body.firstname.toLowerCase()
             }
             if (req.body.lastname != null || req.body.lastname !== undefined) {
-                updatedata["lastname"] = req.body.lastname
+                updatedata["lastname"] = req.body.lastname.toLowerCase()
             }
             if (req.body.username != null || req.body.username !== undefined) {
-                updatedata["username"] = req.body.username
+                updatedata["username"] = req.body.username.toLowerCase()
             }
             if (req.body.email != null || req.body.email !== undefined) {
-                updatedata["email"] = req.body.email
+                updatedata["email"] = req.body.email.toLowerCase()
             }
             if (req.body.password != null || req.body.password !== undefined) {
                 updatedata["password"] = bcrypt.hashSync(req.body.password, 8)
