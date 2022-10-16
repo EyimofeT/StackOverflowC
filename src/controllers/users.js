@@ -6,11 +6,12 @@ import jwt from 'jsonwebtoken'
 
 
 export const createUser = async (req, res) => {
+    if(req.body.firstname && req.body.lastname && req.body.username && req.body.email && req.body.password){
     const user = new userModel({
         firstname: req.body.firstname,
         lastname: req.body.lastname,
-        username: req.body.username,
-        email: req.body.email,
+        username: req.body.username.toLowerCase(),
+        email: req.body.email.toLowerCase(),
         password: bcrypt.hashSync(req.body.password, 8),
         role: req.body.role
 
@@ -23,7 +24,10 @@ export const createUser = async (req, res) => {
     catch (err) {
         res.status(400).json({ "message": err.message })
     }
-
+}
+else {
+    res.status(403).json({ "Message": "Missing User Details" })
+}
 
 }
 
